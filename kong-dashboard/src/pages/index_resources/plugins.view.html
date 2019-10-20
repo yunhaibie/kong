@@ -1,0 +1,53 @@
+<table class="bordered" ng-show="vm.resources.length > 0">
+  <tr>
+    <th>Name</th>
+    <th ng-if="env.schemas.api">API</th>
+    <th ng-if="env.schemas.consumer">Consumer</th>
+    <th ng-if="env.schemas.service">Service</th>
+    <th ng-if="env.schemas.route">Route</th>
+    <th>Status</th>
+    <th>Created</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="plugin in vm.resources">
+    <td>{{plugin.name}}</td>
+    <td ng-if="env.schemas.api">
+      <a ng-if="plugin.api_id" href="#!/apis/{{plugin.api_id}}">{{plugin.api.name}}</a>
+      <span ng-if="!plugin.api_id">All</span>
+    </td>
+    <td ng-if="env.schemas.consumer">
+      <a ng-if="plugin.consumer.id" href="#!/consumers/{{plugin.consumer.id}}">{{plugin.consumer.username || plugin.consumer.custom_id}}</a>
+      <span ng-if="!plugin.consumer_id && !plugin.consumer.id">All</span>
+    </td>
+    <td ng-if="env.schemas.service">
+      <a ng-if="plugin.service.id" href="#!/services/{{plugin.service.id}}">{{plugin.service.name}}</a>
+      <span ng-if="!plugin.service_id && !plugin.service.id">All</span>
+    </td>
+    <td ng-if="env.schemas.route">
+      <a ng-if="plugin.route.id" href="#!/routes/{{plugin.route.id}}">{{plugin.route.id}}</a>
+      <span ng-if="!plugin.route_id && !plugin.route.id">All</span>
+    </td>
+    <td>
+      <div class="switch">
+        <label>
+          Off
+          <input type="checkbox" ng-checked="plugin.enabled" ng-click="vm.tooglePluginStatus(plugin)">
+          <span class="lever"></span>
+          On
+        </label>
+      </div>
+    </td>
+    <td>{{plugin.created_at | date}}</td>
+    <td class="right">
+      <a class="btn-floating waves-effect waves-light" href="#!/plugins/{{plugin.id}}">
+        <i class="material-icons">mode_edit</i>
+      </a>
+      <a class="btn-floating waves-effect waves-light red modal-trigger" ng-click="vm.showDeleteModal(plugin.name, plugin.id)">
+        <i class="material-icons">delete</i>
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>
