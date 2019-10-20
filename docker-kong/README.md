@@ -7,6 +7,7 @@
 	make base
 
 base镜像基于CentOS7，对应的Dockerfile是Dockerfile.base，在里面安装了kong依赖的openresty以及安装kong时用到的工具和依赖包。这里用的kong源码版本为1.0.3,基础镜像为kong_base:1.0.3
+基础镜像制作：主要准备好kong源码编译所需环境，和参考不同的是基础镜像加入rockspec文件,这样制作出的基础镜像就可以拿到离线环境来制作kong源码镜像
 
 ## 制作Kong镜像
 
